@@ -1,33 +1,36 @@
-
-
 function createStartUI() {
     mainElement.innerHTML = createPlayerList()
 }
 
 function createPlayerList() {
-    return `
+    return ` ${createPlayerListTable()}
     <div>
-    <form id="player-info" class="needs-validation" novalidate>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="input-player"
-                        placeholder="Player Name">
+        <form id="player-info" class="needs-validation" novalidate>
+            <div class="input-group mb-3">
+                <input id="input-player" type="text" class="form-control" placeholder="Player Name" >
+                <div class="input-group-append">
+                    <button id="add-player" class="btn btn-outline-secondary" type="button">Add</button>
                 </div>
-                    <button id="add-player"  class="btn btn-primary">Add Player</button>
-            </form>
-        </div>
-            ${createPlayerListTable()}
+            </div>
+        </form>
+    </div>    
     `
 }
 
 function createPlayerListTable() {
     return `
-            <div>
-           <table class="player-table">
-    <tbody>
-     ${addPlayer()}
-    </tbody>
-  </table>
-  </div>  `
+    <div>
+        <h6>Player List</h6>
+        <table class="table table-dark player-table">
+            <tbody>
+                <tr>
+                <td>Name</td>
+                <td>Point</td>
+                </tr>
+        ${addPlayer()}
+            </tbody>
+        </table>
+    </div>  `
 }
 
 function addPlayer() {
@@ -39,7 +42,6 @@ function addPlayer() {
     return storageList.map((players) =>
         players.map((player, index) =>
             ` <tr>
-        <td>Player:</td>
         <td id="${player.playerName}" class="player-name">${player.playerName}</td>
         <td class="player-name">${player.playerPuan}</td>
       </tr>`

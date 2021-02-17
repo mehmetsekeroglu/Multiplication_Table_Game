@@ -17,19 +17,24 @@ let downloadTimer = ""
 createStartUI()
 
 mainElement.addEventListener("click", (event) => {
-    let playerNameArea = document.querySelector("#input-player");
     event.preventDefault();
-    let playerList = []
     if (event.target.id === "add-player") {
-        playerList.push({
-            playerName: playerNameArea.value,
-            playerPuan: 0
-        })
-        let key = playerList[0].playerName
-        localStorage.setItem(key, JSON.stringify(playerList));
-        createStartUI();
+        setLocalPlayerList()
     }
+   
 })
+
+function setLocalPlayerList() {
+    let playerNameArea = document.querySelector("#input-player");
+    let playerList = []
+    playerList.push({
+        playerName: playerNameArea.value,
+        playerPuan: 0
+    })
+    let key = playerList[0].playerName
+    localStorage.setItem(key, JSON.stringify(playerList));
+    createStartUI();
+}
 
 
 
@@ -61,11 +66,10 @@ function createGameArea() {
 
 function createQuestion(pFirstNumber, pSecondNumber, pCounter) {
     return `<div id="calculation-place">
-    <div id="point">Question</div>
     <div id="sayi">Question-${pCounter}</div>
-    <span id="first-number">${pFirstNumber}</span>
+    <span class="numbers" id="first-number">${pFirstNumber}</span>
     <span id="cross-mark">x</span>
-    <span id="second-number">${pSecondNumber}</span>
+    <span class="numbers" id="second-number">${pSecondNumber}</span>
     <span id="equal-mark">=</span>
     <input id="result-number"></input>
    </div>
@@ -75,12 +79,12 @@ function createQuestion(pFirstNumber, pSecondNumber, pCounter) {
 
 function startTimer() {
     let timeleft = 9;
-     downloadTimer = setInterval(function () {
+    downloadTimer = setInterval(function () {
         if (timeleft <= 0) {
             clearInterval(downloadTimer);
             checkResult();
         }
-        const progressElement =document.getElementById("progressBar")
+        const progressElement = document.getElementById("progressBar")
         progressElement.value = 10 - timeleft;
         timeleft -= 1;
     }, 1000);
