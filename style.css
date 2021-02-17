@@ -1,0 +1,15 @@
+ main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+#player-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
