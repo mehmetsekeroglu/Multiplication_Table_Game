@@ -12,6 +12,7 @@ let counter = 0;
 let firstNumber, secondNumber, resultNumber;
 let studentName = ""
 let downloadTimer = ""
+var audio = new Audio("./Corporate-Business.mp3");
 
 
 createStartUI()
@@ -36,44 +37,53 @@ function setLocalPlayerList() {
     createStartUI();
 }
 
-
-
 mainElement.addEventListener("click", function (event) {
     if (event.target.className === "player-name") {
         studentName = event.target.id
-        refreshUI()
+        refreshUI();
+        toggleFullScreen();
+        audio.play();
     }
 })
 
 function refreshUI() {
-    clearInterval(downloadTimer)
-    startTimer()
-    if (counter < 2) {
-        mainElement.innerHTML = createGameArea()
+    clearInterval(downloadTimer);
+    startTimer();
+    countQuestion();
+}
+
+function countQuestion() {
+     if (counter < 2) {
+        mainElement.innerHTML = createGameArea();
     } else {
         clearInterval(downloadTimer)
         counter = 0;
+        audio.pause();
+        exitFullScreen();
         createStartUI();
     }
 }
 
 function createGameArea() {
     counter++
-    firstNumber = Math.floor(Math.random() * 10);
-    secondNumber = Math.floor(Math.random() * 10);
+    firstNumber = Math.floor(Math.random() * 8)+2;
+    secondNumber = Math.floor(Math.random() * 8)+2;
     return createQuestion(firstNumber, secondNumber, counter)
 }
 
 function createQuestion(pFirstNumber, pSecondNumber, pCounter) {
     return `<div id="calculation-place">
-    <div id="sayi">Question-${pCounter}</div>
+    <div id="question-number">Question-${pCounter}</div>
+    <div>
     <span class="numbers" id="first-number">${pFirstNumber}</span>
     <span id="cross-mark">x</span>
     <span class="numbers" id="second-number">${pSecondNumber}</span>
     <span id="equal-mark">=</span>
     <input id="result-number"></input>
+    </div>
+    <progress value="0" max="10" id="progressBar"></progress>
    </div>
-   <progress value="0" max="10" id="progressBar"></progress>
+   
     `
 }
 
@@ -101,13 +111,21 @@ function checkResult() {
     let point = 0
     let resultNumberArea = document.querySelector("#result-number");
     if (resultNumber == resultNumberArea.value) {
-        point += 10
-        updatePoint(point)
+       setTrue(point)
     } else {
-        point -= 5
-        updatePoint(point)
+       setFalse(point)
     }
     refreshUI()
+}
+
+function setTrue(pPoint) {
+    pPoint += 10
+    updatePoint(pPoint) 
+}
+
+function setFalse(pPoint) {
+    pPoint -= 5
+    updatePoint(pPoint)
 }
 
 function updatePoint(pPoint) {
@@ -116,4 +134,16 @@ function updatePoint(pPoint) {
     console.log(activePerson)
     activePerson[0].playerPuan += pPoint
     localStorage.setItem(studentName, JSON.stringify(activePerson));
+}
+
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+        mainElement.requestFullscreen();
+    }
+}
+
+function exitFullScreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    }
 }

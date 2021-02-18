@@ -7,9 +7,9 @@ function createPlayerList() {
     <div>
         <form id="player-info" class="needs-validation" novalidate>
             <div class="input-group mb-3">
-                <input id="input-player" type="text" class="form-control" placeholder="Player Name" >
+                <input id="input-player" type="text" checked="checked" class="form-control border border-dark" placeholder="Player Name" >
                 <div class="input-group-append">
-                    <button id="add-player" class="btn btn-outline-secondary" type="button">Add</button>
+                    <button id="add-player" class="btn btn-dark" type="button">Add</button>
                 </div>
             </div>
         </form>
@@ -19,18 +19,28 @@ function createPlayerList() {
 
 function createPlayerListTable() {
     return `
-    <div>
-        <h6>Player List</h6>
-        <table class="table table-dark player-table">
+    <div class="player-table">
+        <h3>Player List</h3>
+        <table class="table table-dark">
             <tbody>
                 <tr>
                 <td>Name</td>
                 <td>Point</td>
                 </tr>
-        ${addPlayer()}
+        ${createPlayerRow()}
             </tbody>
         </table>
     </div>  `
+}
+
+function createPlayerRow() {
+    return addPlayer().map((players) =>
+        players.map((player, index) =>
+            ` <tr>
+        <td id="${player.playerName}" class="player-name">${player.playerName}</td>
+        <td>${player.playerPuan}</td>
+      </tr>`
+        )).join("")
 }
 
 function addPlayer() {
@@ -39,11 +49,8 @@ function addPlayer() {
         let player = JSON.parse(localStorage.getItem(localStorage.key(index)));
         storageList.push(player);
     }
-    return storageList.map((players) =>
-        players.map((player, index) =>
-            ` <tr>
-        <td id="${player.playerName}" class="player-name">${player.playerName}</td>
-        <td class="player-name">${player.playerPuan}</td>
-      </tr>`
-        )).join("")
+    return storageList;
 }
+
+
+
