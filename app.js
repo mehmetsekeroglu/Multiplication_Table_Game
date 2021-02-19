@@ -50,6 +50,7 @@ function refreshUI() {
     clearInterval(downloadTimer);
     startTimer();
     countQuestion();
+    setFocus();
 }
 
 function countQuestion() {

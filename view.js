@@ -7,7 +7,7 @@ function createPlayerList() {
     <div>
         <form id="player-info" class="needs-validation" novalidate>
             <div class="input-group mb-3">
-                <input id="input-player" type="text" checked="checked" class="form-control border border-dark" placeholder="Player Name" >
+                <input id="input-player" type="text" class="form-control border border-dark" placeholder="Player Name" >
                 <div class="input-group-append">
                     <button id="add-player" class="btn btn-dark" type="button">Add</button>
                 </div>
@@ -52,5 +52,8 @@ function addPlayer() {
     return storageList;
 }
 
+function setFocus() {
+    document.querySelector("input").focus();
+}
 
 
