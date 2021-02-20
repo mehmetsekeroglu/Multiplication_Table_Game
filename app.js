@@ -9,21 +9,13 @@
  */
 const mainElement = document.querySelector("#app");
 let counter = 0;
-let firstNumber, secondNumber, resultNumber;
-let studentName = ""
-let downloadTimer = ""
-var audio = new Audio("./Corporate-Business.mp3");
+let firstNumber, secondNumber, resultNumber, studentName, downloadTimer;
+//let studentName = ""
+//let downloadTimer = ""
+let audio = new Audio("./Corporate-Business.mp3");
 
 
 createStartUI()
-
-mainElement.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (event.target.id === "add-player") {
-        setLocalPlayerList()
-    }
-})
-
 
 
 mainElement.addEventListener("click", function (event) {
@@ -35,50 +27,9 @@ mainElement.addEventListener("click", function (event) {
     }
 })
 
-function refreshUI() {
-    clearInterval(downloadTimer);
-    startTimer();
-    countQuestion();
-    setFocus();
-}
-
-function countQuestion() {
-     if (counter < 2) {
-        mainElement.innerHTML = createGameArea();
-    } else {
-        clearInterval(downloadTimer)
-        counter = 0;
-        audio.pause();
-        exitFullScreen();
-        createStartUI();
-    }
-}
-
-
-
-
-
-function startTimer() {
-    let timeleft = 9;
-    downloadTimer = setInterval(function () {
-        if (timeleft <= 0) {
-            clearInterval(downloadTimer);
-            checkResult();
-        }
-        const progressElement = document.getElementById("progressBar")
-        progressElement.value = 10 - timeleft;
-        timeleft -= 1;
-    }, 1000);
-}
-
 mainElement.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         checkResult();
+
     }
 })
-
-
-
-
-
-

@@ -1,4 +1,6 @@
 function createStartUI() {
+    addPlayerHandler();
+
     mainElement.innerHTML = createPlayerList()
 }
 
@@ -55,5 +57,3 @@ function addPlayer() {
 function setFocus() {
     document.querySelector("input").focus();
 }
-
-
