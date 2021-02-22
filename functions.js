@@ -138,7 +138,7 @@ function startTimer() {
 }
 
 function countQuestion() {
-    if (counter < 2) {
+    if (counter < 10) {
         mainElement.innerHTML = createGameArea();
     } else {
         clearInterval(downloadTimer)
